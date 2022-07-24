@@ -4,12 +4,15 @@ import {useState,useEffect} from 'react'
 import MyDialog from './components/DialogBox'
 import Task from './components/TaskComp';
 
+
 function App() {
+  const loadTaskOn = localStorage.getItem('todoTask')? JSON.parse(localStorage.getItem("todoTask")):[];
+
   const [time,setTime] = useState([9,10,11,12,1,2,3,4,5,6,7,8]);
   const [isOpen, setIsOpen] = useState(false)
   const [tasks,setTasks] = useState("");
   const [timing,setTiming] =useState("");
-  let [taskOn,setTaskOn] = useState([]);
+  let [taskOn,setTaskOn] = useState(loadTaskOn);
 
   function closeModal() {
     setIsOpen(false)
@@ -18,37 +21,36 @@ function App() {
   const changeHandler=()=> {
     setIsOpen(!isOpen);
    
+
     }
+    useEffect(()=>{  
+       localStorage.setItem("todoTask",JSON.stringify(taskOn)); 
+    },[taskOn])
+
     // Adding an item
     const handleOnChange = (e) => {
       e.preventDefault();
          if (!tasks || !timing) {
            alert("fill data");
          }
+       
       else {
+
            setTaskOn([...taskOn,{tasks,timing,id:taskOn.length}]);
-       closeModal(); 
+           closeModal(); 
       }
     }
+   
+   
 
- useEffect(()=>{
-   localStorage.setItem("todoTask",JSON.stringify({taskOn}));
-   if(localStorage.todoTask){
-   const setTaskon =localStorage.getItem("todoTask");
-   const taskon = JSON.parse(setTaskon);
-    console.log(taskon);
-    taskOn=taskon;
-  }
- },[taskOn])
+
+
+
  
-
     // deleting an item
     const deleteItems=(id)=>{
-      const setTaskon =localStorage.getItem("todoTask");
-      const taskon = JSON.parse(setTaskon);
-      const filTask =taskon.taskOn
-     const deleteItem = filTask.filter((item)=> item.id!==id  )
-     setTaskOn(deleteItem);   
+     const deletedItem = taskOn.filter((item)=> item.id!==id  )
+     setTaskOn(deletedItem);  
    }
 
  
@@ -65,10 +67,10 @@ function App() {
           <div className='flex gap-2'>
             {
               taskOn.map((tn,index)=>
-                 tm===Number(tn.timing)?<Task {...tn} key={index} deleteItems={deleteItems} />
-                 
+                 tm===Number(tn.timing)?<Task {...tn} key={index} deleteItems={deleteItems}/>
                  :
-                 <></> )
+                 <></> 
+                 )
             }
             </div>
            
