@@ -7,12 +7,17 @@ import Task from './components/TaskComp';
 
 function App() {
   const loadTaskOn = localStorage.getItem('todoTask')? JSON.parse(localStorage.getItem("todoTask")):[];
+  // console.log(loadTaskOn);
+  // console.log(loadTaskOn[0]);
 
   const [time,setTime] = useState([9,10,11,12,1,2,3,4,5,6,7,8]);
   const [isOpen, setIsOpen] = useState(false)
   const [tasks,setTasks] = useState("");
   const [timing,setTiming] =useState("");
+  const [id,setId] =useState(0);
   let [taskOn,setTaskOn] = useState(loadTaskOn);
+  console.log(taskOn);
+  console.log(taskOn.length);
 
   function closeModal() {
     setIsOpen(false)
@@ -24,7 +29,9 @@ function App() {
 
     }
     useEffect(()=>{  
+      // if(loadTaskOn==""){
        localStorage.setItem("todoTask",JSON.stringify(taskOn)); 
+      // }
     },[taskOn])
 
     // Adding an item
@@ -36,8 +43,8 @@ function App() {
        
       else {
 
-        
-           setTaskOn([...taskOn,{tasks,timing,id:taskOn.length}]);
+           setId(id+1);
+           setTaskOn([...taskOn,{tasks,timing,id}]);
            closeModal(); 
            setTasks("");
            setTiming(""); 
@@ -54,7 +61,7 @@ function App() {
   return (
   <>
     <MyDialog isOpen={isOpen} setIsOpen={setIsOpen} tasks={tasks} setTasks={setTasks} timing={timing} setTiming={setTiming} handleOnChange={handleOnChange} closeModal={closeModal}/>
-    
+     <h1 className='text-3xl pl-24 pb-8 pt-4 bg-blue-700 text-white'>Tasker</h1>
      {  time.map((tm,index)=>
       <div> 
         <div className='flex items-center'>
@@ -64,7 +71,7 @@ function App() {
           <div className='flex gap-2'>
             {
               taskOn.map((tn,index)=>
-                 tm===Number(tn.timing)?<Task {...tn} key={index} deleteItems={deleteItems}/>
+                 tm===Number(tn.timing)?<Task {...tn} key={tn.id} deleteItems={deleteItems}/>
                  :
                  <></> 
                  )

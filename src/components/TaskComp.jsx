@@ -7,7 +7,7 @@
   
     return<>
    
-       <div className='border-2 border-blue-600 bg-blue-400 w-max p-3 rounded-sm text-white'>
+       <div className='border-2 border-blue-600 bg-blue-700 w-max p-3 rounded-sm text-white z-10'>
            {editable?
             <>
              <h1 contentEditable={true} suppressContentEditableWarning={true}>{props.tasks}</h1>  
