@@ -36,16 +36,13 @@ function App() {
        
       else {
 
+        
            setTaskOn([...taskOn,{tasks,timing,id:taskOn.length}]);
            closeModal(); 
+           setTasks("");
+           setTiming(""); 
       }
     }
-   
-   
-
-
-
-
  
     // deleting an item
     const deleteItems=(id)=>{
