@@ -15,8 +15,9 @@ function App() {
   const [isOpen, setIsOpen] = useState(false)
   const [tasks,setTasks] = useState("");
   const [timing,setTiming] =useState("");
-  const [editTasks,seteditTasks] = useState("");
-  const [editTiming,seteditTiming] =useState("");
+
+  // console.log(editTasks);
+
   const [id,setId] =useState(0);
   let [taskOn,setTaskOn] = useState(loadTaskOn);
  
@@ -33,6 +34,8 @@ function App() {
     useEffect(()=>{  
        localStorage.setItem("todoTask",JSON.stringify(taskOn)); 
     },[taskOn])
+
+
 
     // Adding an item
     const handleOnChange = (e) => {
@@ -52,11 +55,16 @@ function App() {
     }
 
     //  editing task
-    const updatingTasks =(id)=>{
-      if(taskOn.id===id){
-        seteditTasks()
-      }
-    }
+    // const updatingTasks =(id,setEditable)=>{
+    //   // if(taskOn.id===id){
+    //   // //  seteditTasks(edit);
+      
+    
+    //    console.log(editTasks);
+       
+    //   // }
+    //   // console.log(editTasks);
+    // }
 
  
     // deleting an item
@@ -68,12 +76,22 @@ function App() {
  
   return (
   <>
-    <MyDialog isOpen={isOpen} setIsOpen={setIsOpen} tasks={tasks} setTasks={setTasks} timing={timing} setTiming={setTiming} handleOnChange={handleOnChange} closeModal={closeModal}/>
+    <MyDialog isOpen={isOpen} 
+              setIsOpen={setIsOpen} 
+              tasks={tasks}
+              setTasks={setTasks} 
+              timing={timing} 
+              setTiming={setTiming} 
+              handleOnChange={handleOnChange} 
+              // editTasks={editTasks}
+              // seteditTasks={seteditTasks}
+              closeModal={closeModal}
+              />
      <h1 className='text-3xl pl-24 pb-8 pt-4 bg-blue-700 text-white'>Tasker</h1>
      {  time.map((tm,index)=>
       <div> 
         <div className='flex items-center'>
-        <button className='font-bold m-20 border-2 p-5 rounded-full shadow-md shadow-blue-500 text-blue-500' onClick={changeHandler}  key={index}>
+        <button className='font-bold m-20 border-2 p-5 rounded-full shadow-md shadow-blue-500 text-blue-500 bg-blue-100' onClick={changeHandler}  key={index}>
           {tm}{index>=4? "PM":"AM"}
           <ImPointUp />
 
@@ -82,7 +100,9 @@ function App() {
           <div className='flex gap-2'>
             {
               taskOn.map((tn,index)=>
-                 tm===Number(tn.timing)?<Task {...tn} key={tn.id} deleteItems={deleteItems} handleOnChange={handleOnChange}/>
+                 tm===Number(tn.timing)?<Task {...tn} key={tn.id} deleteItems={deleteItems} 
+               
+                 />
                  :
                  <></> 
                  )

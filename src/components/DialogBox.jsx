@@ -5,7 +5,7 @@ import { Fragment } from 'react'
 
 
 
- function MyDialog({isOpen,tasks,timing,setTasks,setTiming,handleOnChange,closeModal}) {
+ function MyDialog({isOpen,tasks,timing,setTasks,setTiming,handleOnChange,closeModal,editable,editTasks,seteditTasks}) {
  
   return (
     <>
@@ -53,6 +53,18 @@ import { Fragment } from 'react'
                         className='w-full outline-none'
                         
                        />
+                       {/* {
+                        editable && <input type="text" 
+                        id="task" 
+                        name="task" 
+                        value={editTasks}
+                        onChange={(e)=>seteditTasks(e.target.value)}
+                        placeholder='Add your text' 
+                        className='w-full outline-none'
+                      
+                       />
+                       
+                       } */}
                     <input type="text"
                         id="timing"  
                         name="timing" 
