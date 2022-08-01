@@ -16,7 +16,6 @@ function App() {
   const [tasks,setTasks] = useState("");
   const [timing,setTiming] =useState("");
 
-  // console.log(editTasks);
 
   const [id,setId] =useState(0);
   let [taskOn,setTaskOn] = useState(loadTaskOn);

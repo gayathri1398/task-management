@@ -2,9 +2,11 @@
 
  
  
- const Task=({deleteItems,handleOnChange, updatingTasks,...props})=>{ 
+ const Task=({deleteItems,handleOnChange,...props})=>{ 
      const [editable,setEditable]=useState(false);
      const [editTasks,seteditTasks] = useState("");
+     const [getEdit,setGetEdit] =useState("");
+
 
      const editHandler=()=>{
         setEditable(!editable);
@@ -15,11 +17,11 @@
            if( item.id===props.id){
             item.tasks=editTasks;
            }
-        //    localStorage.setItem("todoTask",JSON.stringify(item))
-           console.log(item)
+           console.log(item);
+           setGetEdit(editTasks);
         })
            
-        console.log(ans);
+        // console.log(ans);
         // let ansOfans = {...ans,tasks:editTasks}
       
         // console.log(editTasks);
@@ -28,21 +30,14 @@
 
      } 
 
-
-    //  const updateTask =(e)=>{
-    //     // seteditTasks()
-    //     // seteditTasks(e.target.value)
-    //     console.log(editTasks);
-    //     editHandler();
-    //  }
-
-
     return<>
    
        <div className='border border-blue-400 bg-blue-500 shadow-lg shadow-blue-300 w-max rounded-md p-6 text-white z-10 font-semibold'>
            {editable?
             <>
-             <h1 contentEditable={true} suppressContentEditableWarning={true} className='font-semibold' onInput={e => seteditTasks(e.currentTarget.textContent)}>{editTasks}</h1>  
+             <h1 contentEditable={true} suppressContentEditableWarning={true} className='font-semibold' onInput={(e)=>seteditTasks(e.currentTarget.textContent)}>
+                {getEdit}
+             </h1>  
              <p contentEditable={true} suppressContentEditableWarning={true} className='font-normal'>{props.timing} </p>
             </> :
             <>
@@ -61,9 +56,7 @@
                      <button className='bg-white px-2 py-1 rounded-md border-2 border-blue-600 text-blue-600 font-semibold ' onClick={editHandler}>
                       Edit
                     </button></>}
-                {/* <button className='bg-white px-2 py-1 rounded-md border-2 border-blue-600 text-blue-600 font-semibold ' onClick={editHandler}>
-                    {!editable?"Edit":"Save"}
-                    </button> */}
+                
                 <button className='bg-white px-2 py-1 rounded-md border-2 border-blue-600 text-blue-600 font-semibold ' onClick={deleteItems.bind(this,props.id)}>
                     Delete
                     </button>
