@@ -9,15 +9,14 @@ import Task from './components/TaskComp';
 
 function App() {
   const loadTaskOn = localStorage.getItem('todoTask')? JSON.parse(localStorage.getItem("todoTask")):[];
-
-
   const [time,setTime] = useState([9,10,11,12,1,2,3,4,5,6,7,8]);
   const [isOpen, setIsOpen] = useState(false)
   const [tasks,setTasks] = useState("");
   const [timing,setTiming] =useState("");
 
 
-  const [id,setId] =useState(0);
+  const [id,setId] =useState(Date.now());
+  // console.log({id});
   let [taskOn,setTaskOn] = useState(loadTaskOn);
  
 
@@ -38,14 +37,15 @@ function App() {
 
     // Adding an item
     const handleOnChange = (e) => {
-      // e.preventDefault();
+      e.preventDefault();
          if (!tasks || !timing) {
            alert("fill data");
          }
        
       else {
+            
+            setId(id+1);
 
-           setId(id+1);
            setTaskOn([...taskOn,{tasks,timing,id}]);
            closeModal(); 
            setTasks("");
@@ -53,17 +53,6 @@ function App() {
       }
     }
 
-    //  editing task
-    // const updatingTasks =(id,setEditable)=>{
-    //   // if(taskOn.id===id){
-    //   // //  seteditTasks(edit);
-      
-    
-    //    console.log(editTasks);
-       
-    //   // }
-    //   // console.log(editTasks);
-    // }
 
  
     // deleting an item

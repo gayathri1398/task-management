@@ -7,20 +7,24 @@
      const [editTasks,seteditTasks] = useState("");
      const [getEdit,setGetEdit] =useState("");
 
-
-     const editHandler=()=>{
-        setEditable(!editable);
-        seteditTasks("");
-        let getArray= JSON.parse(localStorage.getItem("todoTask"));
-        // console.log(getArray);
-        let ans =getArray.filter((item)=>{
+     
+     const editHandler=(e)=>{
+        e.preventDefault();
+         setEditable(!editable);
+         seteditTasks("");
+         let getArray= JSON.parse(localStorage.getItem("todoTask"));
+         getArray.map((item)=>{
            if( item.id===props.id){
             item.tasks=editTasks;
            }
-           console.log(item);
            setGetEdit(editTasks);
-        })
-           
+        //    console.log(item);
+    }
+    )
+        // return getArray;
+        console.log(getArray);
+       localStorage.setItem("todoTask",JSON.stringify(getArray))
+ 
         // console.log(ans);
         // let ansOfans = {...ans,tasks:editTasks}
       
@@ -29,6 +33,10 @@
         
 
      } 
+
+    //  useEffect(() => {
+    //    localStorage.setItem("todoTask",getArray)
+    //  }, [getArray])
 
     return<>
    
